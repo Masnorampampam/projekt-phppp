@@ -38,7 +38,11 @@ class Vote {
         return 0;
     }
     public static function getVote(int $postId, int $userId) : int {
+<<<<<<< HEAD
         //funkcja zwraca (-1,0,1) w zależności od teo czy użytkownik oddał już głos.
+=======
+        //funkcja zwraca (-1,0,1) w zależności od teo czy użytkownik oddał już głos na tego mema
+>>>>>>> bae512de16f1c9e425619d74809e9e2907cf8427
         global $db;
         $query = $db->prepare("SELECT value FROM vote WHERE post_id = ? AND user_id = ?");
         $query->bind_param('ii', $postId, $userId);
