@@ -34,13 +34,6 @@
             die("BŁĄD: Przekazany plik nie jest obrazem!");
         }
 
-        //wyciągnij pierwotne rozszerzenie pliku
-        //$sourceFileExtension = pathinfo($sourceFileName, PATHINFO_EXTENSION);
-        //zmień litery rozszerzenia na małe
-        //$sourceFileExtension = strtolower($sourceFileExtension);
-        /// niepotrzebne - generujemy webp
-
-        //wygeneruj hash - nową nazwę pliku
         $hash = hash("sha256", $sourceFileName . hrtime(true) );
         $newFileName = $hash . ".webp";
 
