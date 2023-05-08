@@ -3,9 +3,9 @@ pub/sandbox/img/
 pub/img/
 dashboard/
 img/
-favicon.ico/
-bitnami.css/
-applications.html/
+favicon/
+bitnami/
+applications/
 xampp/
-index.php/
-test.php/
+index/
+test/
