@@ -1,0 +1,11 @@
+vendor/
+pub/sandbox/img/
+pub/img/
+dashboard/
+img/
+favicon.ico/
+bitnami.css/
+applications.html/
+xammp/
+index.php/
+test.php/
