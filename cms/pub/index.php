@@ -1,29 +1,23 @@
 <?php
 require_once('./../src/config.php');
-//musi być wywołane zanim jakikolwiek content trafi do przeglądarki użytkownika
 session_start();
 
 use Steampixel\Route;
 
 Route::add('/', function() {
-    //strona wyświetlająca obrazki
     global $twig;
-    //pobierz 10 najnowszych postów
     $postArray = Post::getPage();
     $twigData = array("postArray" => $postArray,
                         "pageTitle" => "Strona główna",
                         );
-    //jeśli użytkownik jest zalogowany to przekaż go do twiga
     if(isset($_SESSION['user']))
         $twigData['user'] = $_SESSION['user'];
     $twig->display("index.html.twig", $twigData);
 });
 
 Route::add('/upload', function() {
-    //strona z formularzem do wgrywania obrazków
     global $twig;
     $twigData = array("pageTitle" => "Wgraj mema");
-    //jeśli użytkownik jest zalogowany to przekaż go do twiga
     if(User::isAuth())
     {
         $twigData['user'] = $_SESSION['user'];
@@ -35,14 +29,11 @@ Route::add('/upload', function() {
 });
 
 Route::add('/upload', function() {
-    //wywoła się tylko po otrzymaniu danych metodą post na ten url
-    // (po wypełnieniu formularza)
     global $twig;
     if(isset($_POST['submit']))  {
         Post::upload($_FILES['uploadedFile']['tmp_name'], $_POST['title'], $_POST['userId']);
     }
-    //TODO: zmienić na ścieżkę względną
-    header("Location: http://localhost/cms2/pub");
+    header("Location: http://localhost/cms/pub");
 }, 'post');
 
 Route::add('/register', function() {
@@ -55,7 +46,7 @@ Route::add('/register', function(){
     global $twig;
     if(isset($_POST['submit'])) {
         User::register($_POST['email'], $_POST['password']);
-        header("Location: http://localhost/cms2/pub");
+        header("Location: http://localhost/cms/pub");
     }
 }, 'post');
 
@@ -70,7 +61,7 @@ Route::add('/login', function() {
     if(isset($_POST['submit'])) {
         if(User::login($_POST['email'], $_POST['password'])) {
             //zalogowano poprawnie
-            header("Location: http://localhost/cms2/pub");
+            header("Location: http://localhost/cms/pub");
         } else {
             //błąd logowania
             $twigData = array('pageTitle' => "Zaloguj użytkownika",
@@ -97,7 +88,7 @@ Route::add('/admin', function()  {
 Route::add('/admin/remove/([0-9]*)', function($id) {
     if(Post::remove($id)) {
         //udało się usunąć
-        header("Location: http://localhost/cms2/pub/admin/");
+        header("Location: http://localhost/cms/pub/admin/");
     } else {
         die("Nie udało się usunąć podanego obrazka");
     }
@@ -105,12 +96,12 @@ Route::add('/admin/remove/([0-9]*)', function($id) {
 
 Route::add('/upvote/([0-9]*)', function($id) {
     Vote::upVote($id, $_SESSION['user']->getId());
-    header("Location: http://localhost/cms2/pub/");
+    header("Location: http://localhost/cms/pub/");
 });
 Route::add('/downvote/([0-9]*)', function($id) {
     Vote::downVote($id, $_SESSION['user']->getId());
-    header("Location: http://localhost/cms2/pub/");
+    header("Location: http://localhost/cms/pub/");
 });
 
-Route::run('/cms2/pub');
+Route::run('/cms/pub');
 ?>
