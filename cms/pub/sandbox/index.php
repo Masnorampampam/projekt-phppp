@@ -46,7 +46,7 @@
 
         imagewebp($gdImage, $targetURL);
 
-        $db = new mysqli('localhost', 'root', '', 'cms2');
+        $db = new mysqli('localhost', 'root', '', 'cms');
         $query = $db->prepare("INSERT INTO post VALUES(NULL, ?, ?)");
         $dbTimestamp = date("Y-m-d H:i:s");
         $query->bind_param("ss", $dbTimestamp, $hash);
