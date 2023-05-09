@@ -60,10 +60,8 @@ Route::add('/login', function() {
     global $twig;
     if(isset($_POST['submit'])) {
         if(User::login($_POST['email'], $_POST['password'])) {
-            //zalogowano poprawnie
             header("Location: http://localhost/cms/pub");
         } else {
-            //błąd logowania
             $twigData = array('pageTitle' => "Zaloguj użytkownika",
                                 "message" => "Niepoprawny login lub hasło!");
             $twig->display("login.html.twig", $twigData);
@@ -87,7 +85,6 @@ Route::add('/admin', function()  {
 
 Route::add('/admin/remove/([0-9]*)', function($id) {
     if(Post::remove($id)) {
-        //udało się usunąć
         header("Location: http://localhost/cms/pub/admin/");
     } else {
         die("Nie udało się usunąć podanego obrazka");
