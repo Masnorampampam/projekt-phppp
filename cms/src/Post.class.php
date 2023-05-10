@@ -27,11 +27,11 @@ class Post {
     public function getId() : int {
         return $this->id;
     }
-    public function getFilename() : string {
-        return $this->filename;
-    }
     public function getTimestamp() : string {
         return $this->timestamp;
+    }
+    public function getFilename() : string {
+        return $this->filename;
     }
     public function getTitle() : string {
         return $this->title;
@@ -52,7 +52,7 @@ class Post {
         $query->execute();
         $result = $query->get_result();
         $row = $result->fetch_assoc();
-        $p = new Post($row['id'], $row['filename'], $row['timestamp'], $row['title'], $row['userId']);
+        $p = new Post($row['id'], $row['timestamp'], $row['filename'], $row['title'], $row['userId']);
         return $p; 
     }
 
@@ -65,7 +65,7 @@ class Post {
         $result = $query->get_result();
         $postsArray = array();
         while($row = $result->fetch_assoc()) {
-            $post = new Post($row['id'],$row['filename'],$row['timestamp'], $row['title'], $row['authorId']);
+            $post = new Post($row['id'],$row['timestamp'],$row['filename'], $row['title'], $row['authorId']);
             array_push($postsArray, $post);
         }
         return $postsArray;
